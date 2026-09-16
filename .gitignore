@@ -1,0 +1,4 @@
+# Swift build artifacts and the assembled/signed bundle — reproducible via build.swift.
+.build/
+AppMirror.app/
+.DS_Store
