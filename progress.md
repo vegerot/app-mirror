@@ -139,3 +139,30 @@ Next:
 Next:
 
 - Resume the existing background-input experiment when requested.
+
+## 2026-09-14 — Revisit the original goal and visual-only alternative
+
+- 🔎 User clarified that built-in Computer Use must remain unchanged. Reviewed
+  the implementation and earlier simplicity discussion; replacing Computer Use
+  with custom tools would not meet that constraint.
+- 📐 Current production Swift sources total 1,443 lines, including comments:
+  AccessibilityBridge is 558 and MenuBridge is 203. Tree snapshots, identity
+  reconstruction, proxy views and refresh scheduling account for much of the
+  design's complexity. Removing them remains a proposal, not a verified change.
+- 🧠 The original archive's AX-only-token observation does not by itself prove
+  that screenshot-and-coordinate operation is impossible. The installed CU
+  interface exposes both screenshots and coordinate actions. Claude's own CU
+  still requires separate verification; earlier Claude-target tests used Codex.
+- 🧪 Built a temporary 58-line pixel-only test window under
+  `/tmp/app-mirror-pixel-probe`. It exited before creating a window because
+  NSScreen reported fewer than two displays. No visual-input trial completed;
+  no production code, built bundle, goal or implementation plan changed.
+
+Next:
+
+- If pursuing this alternative, test screenshot reading, coordinate clicks,
+  typing and scrolling under the actual built-in controller, then real-app
+  menus and popups. A single captured window can omit native menu surfaces.
+- Decide from those outcomes whether to remove tree replication, retain a
+  small menu bridge, or keep semantic forwarding. Preserve existing acceptance
+  coverage until a smaller implementation proves the required workflows.
