@@ -89,3 +89,53 @@ Next:
 
 - Read this log from the bottom and check the working copy before resuming
   the background-input experiment described in [plan.md](plan.md).
+
+## 2026-09-14 — Fix fixture window ownership on close
+
+- 🔧 Set `window.isReleasedWhenClosed = false` in MirrorTarget so Swift owns
+  the window lifetime and the title timer does not access an over-released
+  window after closing. Kept the fix to one code line.
+- 🧪 The fixture release build and signing passed via `swift build.swift`.
+  Live close/quit behavior has not been retested. Changes are uncommitted.
+
+Next:
+
+- Verify closing the rebuilt fixture window no longer crashes.
+- Resume the existing background-input experiment when requested.
+
+## 2026-09-14 — Verify fixture close and quit live
+
+- 🧪 Restarted the old fixture process (39676) into the rebuilt app (50478).
+  Clicked its native close button with Computer Use; the subsequent AX read
+  timed out because no window remained. Confirmed the same process was alive
+  afterward and Core Graphics reported no on-screen windows for it, well past
+  the 0.2-second title timer interval.
+- ✅ Sent Command-Q to that process and confirmed it exited. No new MirrorTarget
+  crash report appeared in the user or system DiagnosticReports directories;
+  checked at 17:57:47 local time. Fixture is now stopped.
+- 🖥️ The rebuilt app centered on the primary display. Computer Use title-bar
+  drags did not move it to the secondary display; closed it promptly after
+  those failed attempts. This was direct fixture testing, not a proxy audit.
+
+Next:
+
+- Commit the ownership fix and validation log when requested.
+- Resume the existing background-input experiment when requested.
+
+
+## 2026-09-14 — Reproduce baseline and restore verified fix
+
+- 🧪 Shelved only the ownership fix and this log as `mirror-window-close-repro`,
+  rebuilt the original fixture, and reproduced the exact `objc_retain + 16`
+  / timer closure #4 + 304 crash in PID 54796 at 17:58:53 local time.
+- ✅ Unshelved the changes, rebuilt and signed, then verified fixed PID 56365
+  survived native window closure and checks five seconds apart with no visible
+  windows. Command-Q exited it; no crash report for that PID appeared.
+- 🗂️ Recorded evidence and turn summaries in
+  [the conversation archive](mirror-target-close-crash.md), updated the topic
+  index, and prepared the requested scoped commit. The fixed bundle is restored
+  and the fixture is stopped. Display placement limitations remain documented.
+
+Next:
+
+- Resume the existing background-input experiment when requested.

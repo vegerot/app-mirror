@@ -36,4 +36,11 @@ Across the wrapper proposal, implementation, and review, a successful operation 
 Computer Use addresses the mirror's republished accessibility tree, but the forwarding layer deliberately activates and raises the target before injecting HID pointer, keyboard, and scroll events, then never restores mirror focus.
 This makes the target controllable but leaves the proxy not focus-transparent; the documented shared acceptance audit remains pending rather than being an automated test suite.
 
+[MirrorTarget window-close crash](mirror-target-close-crash.md) follows the smoke test with a one-line window ownership fix.
+Shelving and rebuilding reproduced the exact timer crash; restoring the fix kept the process alive after closure and allowed Quit to exit without a new crash report. Together with the earlier acceptance corrections, this demonstrates why controlled before/after behavior matters more than a successful build alone.
+
+## 🗃️ Live table
+
+Renders in Obsidian.
+
 ![[topic.base]]

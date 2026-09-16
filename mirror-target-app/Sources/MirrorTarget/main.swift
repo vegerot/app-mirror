@@ -275,6 +275,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             styleMask: [.titled, .closable, .resizable],
             backing: .buffered, defer: false
         )
+        window.isReleasedWhenClosed = false
         window.title = Probe.untitledWindow ? "" : Probe.appName
         model.log("Window title: \(Probe.untitledWindow ? "empty" : Probe.appName)")
         let content = NSView(frame: NSRect(x: 0, y: 0, width: 880, height: 720))
