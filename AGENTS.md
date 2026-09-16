@@ -1,8 +1,9 @@
 # Agent instructions — shared mirror proxy
 
 Read [the goal](GOAL.md) before working here and after
-compaction, then [IMPLEMENTATION_PLAN.md](IMPLEMENTATION_PLAN.md) for the exact
-checkpoint and next experiment.
+compaction, then [plan.md](plan.md) for the plan
+and [progress.md](progress.md) from the bottom for the current checkpoint.
+Check `sl status` and `sl diff --stat` against the latest entry before continuing.
 
 - Never use Computer Use directly on `com.openai.codex`, including debugging.
   Use `com.chatgpt-mirror.proxy`. Direct Claude diagnosis is allowed; final tests
@@ -22,6 +23,20 @@ checkpoint and next experiment.
   continuous resizing, capture replacement, file pickers and refresh optimization.
 - Build and run relevant checks for each logical commit. Use Sapling and explicit
   paths; do not commit unrelated work or push without a request.
+
+## Progress convention
+
+- Keep [progress.md](progress.md) short, append-only, and continuation-ready;
+  newest entries go last. Any engineer should be able to read the plan and log
+  and understand what is done and what remains.
+- Summarize code changes, experiments, commits, and findings as work happens,
+  including mid-task handoffs. Use dated entries and one emoji per action.
+- End every entry with a `Next:` block containing concrete next steps.
+- Put mutable state (commit hashes, test results, blockers, current environment)
+  in the log. Keep settled decisions and intended work in the goal and plan.
+- Link detailed evidence in reviews, testing notes, or experiment artifacts;
+  do not duplicate long transcripts in the log. Correct earlier findings with
+  a new entry rather than rewriting old entries.
 
 ## Source map
 

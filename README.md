@@ -10,7 +10,8 @@ Formerly ChatGPT Mirror. The app and executable are now `AppMirror`; the bundle 
 
 ## Development
 
-Start with [AGENTS.md](AGENTS.md), [the goal](GOAL.md), and [the implementation plan](IMPLEMENTATION_PLAN.md).
+Start with [AGENTS.md](AGENTS.md), [the goal](GOAL.md), and [the implementation plan](plan.md).
+Read [progress.md](progress.md) from the bottom for the latest checkpoint and next action.
 See [TESTING.md](TESTING.md) for build and test commands and [the September 14 review](REVIEW-2026-09-14.md) for acceptance gaps.
 
 ## Conversations
@@ -25,7 +26,7 @@ A later portability probe retargeted the unchanged binary to Claude.app and veri
 
 [Claude control and shared proxy refactor](claude-proxy-control-and-sizing.md) continues the portability probe with live Computer Use tests and initial outer-window sizing, then removes multi-window experiments and extracts shared target, accessibility, input and menu components.
 Its September 14 Astra review corrects Luna's unsupported menu claims, preserves physical function keys, simplifies capture correspondence, and adds binary modifier and persistent outcome logs; seven tests pass, but the combined acceptance audit remains incomplete.
-The [handoff plan](IMPLEMENTATION_PLAN.md) records clipboard and snapshot-budget gaps and a proposed background-input experiment: native Codex CU operated the fixture without taking foreground focus, while the proxy itself still activates the target and uses global pointer input. All ChatGPT Computer Use remains strictly through the mirror.
+The [handoff plan](plan.md) records clipboard and snapshot-budget gaps and a proposed background-input experiment: native Codex CU operated the fixture without taking foreground focus, while the proxy itself still activates the target and uses global pointer input. All ChatGPT Computer Use remains strictly through the mirror.
 
 [ChatGPT Mirror simplicity review](chatgpt-mirror-simplicity-review.md) revisits the implementation at 847 lines and attributes much of its complexity to maintaining another representation of the UI.
 The conversation verified one supported native task-list read and acknowledged that operation-specific interfaces do not satisfy full transparency; no proxy code changed.

@@ -1,9 +1,8 @@
 # Shared mirror testing
 
 Checkpoint: **2026-09-14**. Seven automated tests and both signed builds pass.
-The common real-app acceptance audit is incomplete. Read
-[IMPLEMENTATION_PLAN.md](IMPLEMENTATION_PLAN.md) and
-[the review](REVIEW-2026-09-14.md) for the current next experiment and evidence.
+The common real-app acceptance audit is incomplete. Read [progress.md](progress.md) from the bottom for the current next experiment
+and [the review](REVIEW-2026-09-14.md) for the September 14 evidence.
 
 ## Build and launch
 
