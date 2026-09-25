@@ -532,22 +532,25 @@ final class AXProxyElementView: NSView {
         guard canPress, isAccessibilityEnabled() else { return false }
         let menuPress = roleName == (kAXMenuItemRole as String)
             && supportedActions.contains(kAXPressAction as String)
-        let pid = TargetConnection.shared.pid()
-        if !menuPress, let pid, let mainWindow = TargetConnection.shared.mainWindow(pid: pid) {
+        guard let pid = TargetConnection.shared.pid() else { return false }
+        if !menuPress, let mainWindow = TargetConnection.shared.mainWindow(pid: pid) {
             InputForwarder.activateMainWindow(pid: pid, targetBounds: mainWindow.bounds)
             usleep(100_000)
         }
-        guard let current = pid.flatMap({
-            AXBridge.freshElement(
-                pid: $0,
-                path: path
-            )
-        }) else {
-            NSLog("AXProxy: stale \(accessibilityLabel() ?? accessibilityRole()?.rawValue ?? "?")")
-            NotificationCenter.default.post(name: .axProxyDidAct, object: nil)
-            return false
+        let current: AXUIElement
+        if menuPress {
+            // The open menu is transient and may not be reachable by walking
+            // the main-window path again. The snapshot still holds its item.
+            current = remote
+        } else {
+            guard let fresh = AXBridge.freshElement(pid: pid, path: path) else {
+                NSLog("AXProxy: stale \(accessibilityLabel() ?? accessibilityRole()?.rawValue ?? "?")")
+                NotificationCenter.default.post(name: .axProxyDidAct, object: nil)
+                return false
+            }
+            current = fresh
+            remote = fresh
         }
-        remote = current
         // A menu can move or close when its owner is raised. Press the live
         // menu item directly, without moving the pointer or changing focus.
         let ok = menuPress

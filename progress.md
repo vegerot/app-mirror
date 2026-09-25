@@ -190,3 +190,25 @@ Next:
 - With a secondary display, select `6:00 AM` in `Fixture time` through App
   Mirror and confirm the target result and event log, then repeat with a benign
   real-app menu without changing the user's schedule.
+
+## 2026-09-24 — Verify the window-menu fix live
+
+- 🔎 The first live fixture attempt exposed `6:00 AM`, but two presses logged
+  `AXProxy: stale 6:00 AM` and the picker stayed at `2:45 AM`. The main-window
+  path lookup could not resolve the transient menu item. The proxy now presses
+  the AX element retained by the current snapshot, avoiding that lookup.
+- ✅ Through the rebuilt signed proxy, `Fixture time` changed `2:45 → 6:00 →
+  2:45 AM`. Both transitions matched the picker value, result label and fixture
+  event log. The proxy logged `menu AXPress ... -> success`.
+- ✅ Through the same proxy, the real `Rebuild Codex CLI` task changed `6:00 →
+  6:15 → 6:00 AM`. The Scheduled view and tracked automation rule matched both
+  changes. The final rule is daily at 6:00 AM. Restored the test-only
+  `updated_at` change; reopening Scheduled still showed 6:00 AM.
+- 🧪 Seven Swift tests and the signed proxy build passed after the code change.
+  The fixture build had passed before the live trial. Quit the fixture and
+  proxy, and returned ChatGPT to the original task view.
+
+Next:
+
+- Continue the broader ChatGPT and Claude acceptance audit when requested;
+  this window-menu selection issue is verified in the fixture and Codex task.
