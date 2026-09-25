@@ -530,8 +530,10 @@ final class AXProxyElementView: NSView {
 
     override func accessibilityPerformPress() -> Bool {
         guard canPress, isAccessibilityEnabled() else { return false }
+        let menuPress = roleName == (kAXMenuItemRole as String)
+            && supportedActions.contains(kAXPressAction as String)
         let pid = TargetConnection.shared.pid()
-        if let pid, let mainWindow = TargetConnection.shared.mainWindow(pid: pid) {
+        if !menuPress, let pid, let mainWindow = TargetConnection.shared.mainWindow(pid: pid) {
             InputForwarder.activateMainWindow(pid: pid, targetBounds: mainWindow.bounds)
             usleep(100_000)
         }
@@ -546,8 +548,12 @@ final class AXProxyElementView: NSView {
             return false
         }
         remote = current
-        let ok = InputForwarder.press(current)
-        NSLog("AXProxy: pointer press \(elementLabel ?? roleName) -> \(ok ? "success" : "failed")")
+        // A menu can move or close when its owner is raised. Press the live
+        // menu item directly, without moving the pointer or changing focus.
+        let ok = menuPress
+            ? AXUIElementPerformAction(current, kAXPressAction as CFString) == .success
+            : InputForwarder.press(current)
+        NSLog("AXProxy: \(menuPress ? "menu AXPress" : "pointer press") \(elementLabel ?? roleName) -> \(ok ? "success" : "failed")")
         fflush(stderr)
         if ok {
             usleep(150_000)

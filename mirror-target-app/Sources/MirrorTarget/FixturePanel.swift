@@ -42,6 +42,12 @@ final class FixturePanel: NSView {
         let toggle = NSButton(checkboxWithTitle: "Fixture toggle", target: self, action: #selector(toggle(_:)))
         toggle.frame = NSRect(x: 10, y: 345, width: 170, height: 30)
         addSubview(toggle)
+        let time = NSPopUpButton(frame: NSRect(x: 195, y: 345, width: 175, height: 30), pullsDown: false)
+        time.setAccessibilityLabel("Fixture time")
+        time.addItems(withTitles: ["2:45 AM", "6:00 AM", "9:00 AM"])
+        time.target = self
+        time.action = #selector(selectTime(_:))
+        addSubview(time)
         for (index, name) in ["Left scroll", "Right scroll"].enumerated() {
             let scroll = AuditScrollView(frame: NSRect(x: 10 + index * 185, y: 140, width: 175, height: 180))
             scroll.name = name
@@ -67,6 +73,11 @@ final class FixturePanel: NSView {
     required init?(coder: NSCoder) { fatalError("not used") }
     @objc private func duplicate(_ sender: NSButton) { result.stringValue = "Clicked \(sender.tag == 0 ? "Left" : "Right") group" }
     @objc private func toggle(_ sender: NSButton) { result.stringValue = "Toggle \(sender.state.rawValue)" }
+    @objc private func selectTime(_ sender: NSPopUpButton) {
+        let selected = sender.titleOfSelectedItem ?? "none"
+        result.stringValue = "Time \(selected)"
+        report?("Time selected: \(selected)")
+    }
     @objc private func replaced() { result.stringValue = "Replacement version \(version)" }
     private func installReplacement() {
         replacement?.removeFromSuperview()

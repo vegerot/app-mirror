@@ -166,3 +166,27 @@ Next:
 - Decide from those outcomes whether to remove tree replication, retain a
   small menu bridge, or keep semantic forwarding. Preserve existing acceptance
   coverage until a smaller implementation proves the required workflows.
+
+## 2026-09-24 — Press transient window menus semantically
+
+- 🔎 The Codex scheduler exposed a `6:00 AM` menu entry through App Mirror,
+  but the first mirrored click saved `2:45 AM`. Source inspection found that
+  window menu items were pressed through a global pointer click after raising
+  the target and resolving the item again. The menu was absent from the mirrored
+  window capture, so the click receipt could not establish which item was selected.
+  The focus-changing pointer path is a plausible cause, not yet an isolated one.
+  A later click used an index after the menu had closed; that was stale-index
+  use by the controller, separate from the forwarding problem.
+- 🔧 Window `AXMenuItem` nodes that advertise `AXPress` now use that action
+  directly, without raising the target or moving the pointer. Added a
+  `Fixture time` pop-up with visible and logged selection results.
+- 🧪 All seven Swift tests and both signed builds passed. `NSScreen` reported
+  only the built-in display, so no live fixture or real-app acceptance was run;
+  the user's manually corrected 6 AM automation was not touched. The user agreed
+  to defer the live check while only one display is connected.
+
+Next:
+
+- With a secondary display, select `6:00 AM` in `Fixture time` through App
+  Mirror and confirm the target result and event log, then repeat with a benign
+  real-app menu without changing the user's schedule.

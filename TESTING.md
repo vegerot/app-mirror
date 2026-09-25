@@ -85,6 +85,7 @@ non-hover outcomes now also remain in the event log.
 | Unicode | Multiline paste, selection of an emoji, ASCII replacement and clearing pass in the fixture. CU Unicode typeText produced no text even directly against the fixture in the diagnostic trial. |
 | Repeat | Event metadata is preserved by a unit test; the existing low-level probe did not establish synthetic repeat delivery to the mirror. |
 | Menus | Disabled/enabled Count, dynamic titles, one invocation per click/closed-menu shortcut, nested action, AX Cancel and post-menu typing pass. |
+| Window pop-up | `Fixture time` offers 2:45, 6:00 and 9:00 AM and logs the selected title. Select 6:00 AM through the mirror and check `Time selected: 6:00 AM` in the visible log. Live check pending while only one display is connected. |
 | Open-menu keyboard | Previous pass claim withdrawn: Down/Return/Escape do not reliably operate CU AX-opened menus even on the native fixture. Synthetic navigation was removed. |
 | Capture/lifecycle | Untitled window pixels and controls work; exiting target removes stale controls; outer frames initially match at 880×752. |
 
@@ -134,5 +135,7 @@ fixture are stopped for the archive.
 - Add a long-content fixture before addressing snapshot-budget reachability.
 - Resolve or accurately delimit emoji selection, native-menu keyboard control,
   hover-only CU and synthetic repeat behavior.
+- Check `Fixture time` through the mirror when a secondary display is available;
+  a menu entry should select its own label without moving the physical pointer.
 - Finish the same applicable matrix on both real apps after any forwarding
   changes. No app-specific press exception is currently justified or installed.
