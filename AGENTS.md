@@ -8,21 +8,22 @@ Check `sl status` and `sl diff --stat` against the latest entry before continuin
 - Never use Computer Use directly on `com.openai.codex`, including debugging.
   Use `com.chatgpt-mirror.proxy`. Direct Claude diagnosis is allowed; final tests
   of both real apps must operate through the mirror.
-- When more than one monitor is connected, keep every controlled window on the
-  secondary monitor: target and proxy. Check placement again after launching.
-  Do not interfere with the user's other work.
-- One target window; no multi-window ranking, selection, or switching.
+- In order to not interfere with the user's other work: When more than one
+  monitor is connected, keep every controlled window on the secondary monitor:
+  target and proxy. Check placement again after launching. Do not interfere
+  with the user's other work.
+- For simplicity in MVP: One target window; no multi-window ranking, selection, or switching.
 - Prefer shared behavior. App-specific exceptions need a recorded failure and
   a reason the shared solution is substantially more complicated.
-- Every new feature must be supported by the test app and logged/displayed.
+- Every new feature should be supported by the test app and logged/displayed.
   Choose fixture-first or real-app-first experiments based on what needs proving.
 - Keep things simple. Never automatically retry a press after a visual no-op.
   Verify outcomes and restore state; do not send test messages.
 - Keep initial connection sizing, periodic AX refresh, stable signing identity,
   bundle ID, and the existing target environment variable/default. Defer
   continuous resizing, capture replacement, file pickers and refresh optimization.
-- Build and run relevant checks for each logical commit. Use Sapling and explicit
-  paths; do not commit unrelated work or push without a request.
+- Build and run relevant checks for each logical commit. Use explicit paths; do
+  not commit unrelated work or push without a request.
 
 ## Progress convention
 
