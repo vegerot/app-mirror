@@ -8,9 +8,9 @@ Check `sl status` and `sl diff --stat` against the latest entry before continuin
 - Never use Computer Use directly on `com.openai.codex`, including debugging.
   Use `com.chatgpt-mirror.proxy`. Direct Claude diagnosis is allowed; final tests
   of both real apps must operate through the mirror.
-- Keep every controlled window on the secondary monitor: target and proxy.
-  Check placement again after launching. Do not interfere with the user's
-  primary-monitor work.
+- When more than one monitor is connected, keep every controlled window on the
+  secondary monitor: target and proxy. Check placement again after launching.
+  Do not interfere with the user's other work.
 - One target window; no multi-window ranking, selection, or switching.
 - Prefer shared behavior. App-specific exceptions need a recorded failure and
   a reason the shared solution is substantially more complicated.

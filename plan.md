@@ -15,8 +15,9 @@ entry before continuing. Follow the progress convention in [AGENTS.md](AGENTS.md
 - **Never target `com.openai.codex` directly with Computer Use, even for
   debugging.** Use `com.chatgpt-mirror.proxy`. Direct Claude diagnosis is allowed;
   final real-app acceptance must use the mirror.
-- Put every controlled target, mirror and fixture window on the secondary
-  monitor. This does not isolate global mouse or keyboard input.
+- When more than one monitor is connected, put every controlled target, mirror
+  and fixture window on the secondary monitor. This does not isolate global
+  mouse or keyboard input.
 - Every new feature needs fixture support and visible/logged outcomes. Verify
   the target result; an acknowledged action is not proof it worked. Never
   automatically repeat a press after a visual no-op.
@@ -68,4 +69,3 @@ Completion and corrections are recorded in [progress.md](progress.md).
    historical smoke tests into a claim of full acceptance.
 
 Background forwarding is a proposed next experiment, **not implemented**.
-

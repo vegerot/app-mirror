@@ -212,3 +212,18 @@ Next:
 
 - Continue the broader ChatGPT and Claude acceptance audit when requested;
   this window-menu selection issue is verified in the fixture and Codex task.
+
+## 2026-09-27 — Allow one-display mirror checks
+
+- 🔧 At the user's request, changed the secondary-monitor placement rule to
+  apply only when more than one monitor is connected. The strict requirement to
+  control ChatGPT only through App Mirror remains.
+- ✅ With only the built-in display connected, App Mirror showed the new
+  **Dayflow Backup Risk** task in Scheduled, daily, with its next run at
+  September 28, 9:01 AM PDT. Its detail showed the expected check command.
+  Returned ChatGPT to the original Dayflow conversation.
+
+Next:
+
+- Continue the broader acceptance audit when requested. With multiple displays,
+  keep the target and proxy on the secondary monitor.

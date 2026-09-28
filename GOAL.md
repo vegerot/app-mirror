@@ -35,8 +35,9 @@ fixture token. Both accessibility and visible outcomes matter in current tests.
 
 Every feature must be supported and logged/displayed by the fixture. Experiments
 may start with the fixture or either real app, subject to the strict mirror
-boundary. Put all controlled windows on the user's secondary monitor to avoid
-interference. Restore state after tests and never send test chat messages.
+boundary. When more than one monitor is connected, put all controlled windows
+on the user's secondary monitor to avoid interference. Restore state after
+tests and never send test chat messages.
 
 Preserve initial outer-window sizing, stable signing identity, bundle ID,
 `MIRROR_TARGET_BUNDLE_ID` and its default. Continuous resizing, multiple windows,

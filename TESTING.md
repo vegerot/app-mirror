@@ -41,8 +41,9 @@ open --new \
 ```
 
 Pass `--env PROBE_UNTITLED=1` to the fixture launch to test its untitled window.
-It reports that mode in the visible log. Put target and mirror on the secondary
-monitor after launch, checking current display geometry first.
+It reports that mode in the visible log. When more than one monitor is
+connected, put target and mirror on the secondary monitor after launch,
+checking current display geometry first.
 
 For real-app acceptance use only:
 
