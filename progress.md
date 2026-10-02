@@ -255,3 +255,17 @@ Next:
 Next:
 
 - No icon work remains. The separate forwarding acceptance audit is unchanged.
+
+## 2026-10-02 — Demonstrate the updated mirror
+
+- 🪞 Launched the rebuilt bundle targeting ChatGPT.app with both permissions
+  granted and matching 1512×949-point frames on the single built-in display.
+- ✅ Computer Use through the mirror hid and restored the ChatGPT sidebar;
+  fresh controls and screenshots verified both outcomes. No message or draft
+  changes. Left the mirror running and raised for the user's inspection.
+- 🔎 The separate Dock inspection timed out; no live Dock screenshot is claimed.
+  Details are in [the icon archive](generated-app-icon.md).
+
+Next:
+
+- App Mirror is still open. The broader forwarding audit remains incomplete.
