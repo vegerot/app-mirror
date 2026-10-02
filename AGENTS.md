@@ -25,6 +25,19 @@ Check `sl status` and `sl diff --stat` against the latest entry before continuin
 - Build and run relevant checks for each logical commit. Use explicit paths; do
   not commit unrelated work or push without a request.
 
+## Friction and improvement proposals
+
+- During ordinary use as well as testing, note friction, unexpected behavior,
+  and awkward workarounds in [progress.md](progress.md). Briefly record the
+  target app, action, expected versus observed result, evidence, and any workaround.
+  Link an existing finding when it is the same issue rather than duplicating it.
+- Separate observations from suspected causes. Do not assume the mirror caused
+  an issue that could come from the target app or Computer Use.
+- Bring these findings to the user with concrete improvement proposals: the
+  smallest useful change, how it would help, and a small check to validate it.
+  Keep the current task moving; implement improvements when they fall within
+  its scope, and present other improvements as proposals.
+
 ## Progress convention
 
 - Keep [progress.md](progress.md) short, append-only, and continuation-ready;

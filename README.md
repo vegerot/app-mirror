@@ -15,6 +15,10 @@ Start with [AGENTS.md](AGENTS.md), [the goal](GOAL.md), and [the implementation 
 Read [progress.md](progress.md) from the bottom for the latest checkpoint and next action.
 See [TESTING.md](TESTING.md) for build and test commands and [the September 14 review](REVIEW-2026-09-14.md) for acceptance gaps.
 
+When using or testing the mirror, record friction and unexpected behavior and
+propose concrete improvements to the user. Follow the
+[friction and improvement guidance](AGENTS.md#friction-and-improvement-proposals).
+
 The app icon uses two reflective window panes on a blue background. Its full-square
 source artwork is [Resources/AppIcon.png](Resources/AppIcon.png); the
 [generation prompt](Resources/AppIcon-prompt.txt) records the built-in imagegen
@@ -50,6 +54,7 @@ Shelving and rebuilding reproduced the exact timer crash; restoring the fix kept
 reproducible icon packaging. Inspecting the macOS-rendered icon exposed a pale
 outer plate around the first transparent design; full-square artwork fixed the
 actual app appearance while preserving signing and forwarding behavior.
+A follow-up adds guidance to record friction during mirror use and propose improvements.
 
 ## 🗃️ Live table
 

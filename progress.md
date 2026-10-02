@@ -269,3 +269,15 @@ Next:
 Next:
 
 - App Mirror is still open. The broader forwarding audit remains incomplete.
+
+## 2026-10-02 — Capture friction and propose improvements
+
+- 📝 At the user's request, added agent guidance to record friction during
+  ordinary mirror use and testing, including expected/observed results, evidence,
+  and workarounds. Findings must distinguish observations from suspected causes.
+- 💡 Require concrete proposals to the user: the smallest useful improvement,
+  its benefit, and a small validation check. Linked the guidance from the README.
+
+Next:
+
+- Apply this guidance when friction arises during future mirror use.
