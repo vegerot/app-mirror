@@ -1,5 +1,6 @@
 ---
 aliases: [app-mirror]
+tags: [agent-error, mcp, permissions, reverse-engineering]
 ---
 
 # 🪞 App Mirror
@@ -13,6 +14,12 @@ Formerly ChatGPT Mirror. The app and executable are now `AppMirror`; the bundle 
 Start with [AGENTS.md](AGENTS.md), [the goal](GOAL.md), and [the implementation plan](plan.md).
 Read [progress.md](progress.md) from the bottom for the latest checkpoint and next action.
 See [TESTING.md](TESTING.md) for build and test commands and [the September 14 review](REVIEW-2026-09-14.md) for acceptance gaps.
+
+The app icon uses two reflective window panes on a blue background. Its full-square
+source artwork is [Resources/AppIcon.png](Resources/AppIcon.png); the
+[generation prompt](Resources/AppIcon-prompt.txt) records the built-in imagegen
+request. `build.swift` uses macOS `sips` and `iconutil` to generate all standard
+and Retina sizes, then includes `AppIcon.icns` in the signed app bundle.
 
 ## Conversations
 
@@ -38,6 +45,11 @@ This makes the target controllable but leaves the proxy not focus-transparent; t
 
 [MirrorTarget window-close crash](mirror-target-close-crash.md) follows the smoke test with a one-line window ownership fix.
 Shelving and rebuilding reproduced the exact timer crash; restoring the fix kept the process alive after closure and allowed Quit to exit without a new crash report. Together with the earlier acceptance corrections, this demonstrates why controlled before/after behavior matters more than a successful build alone.
+
+[Generated App Mirror icon](generated-app-icon.md) adds a two-window design and
+reproducible icon packaging. Inspecting the macOS-rendered icon exposed a pale
+outer plate around the first transparent design; full-square artwork fixed the
+actual app appearance while preserving signing and forwarding behavior.
 
 ## 🗃️ Live table
 

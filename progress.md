@@ -227,3 +227,22 @@ Next:
 
 - Continue the broader acceptance audit when requested. With multiple displays,
   keep the target and proxy on the secondary monitor.
+
+## 2026-10-02 — Generate and package an app icon
+
+- 🎨 Generated two reflective window panes on blue with the built-in imagegen
+  tool; saved the final source and both prompts under `Resources/`.
+- 🔧 Added all ten standard/Retina icon representations to `build.swift` and
+  registered the packaged `AppIcon.icns` in `Info.plist`. Rebuilt the existing
+  local bundle with its original identifier and stable signing identity.
+- 🧪 Seven Swift tests passed. The bundle plist, icon representations and final
+  signature verified. An `NSWorkspace` rendering check caught a pale outer plate
+  around the first transparent image; a full-square imagegen edit removed it
+  in the final macOS rendering. See [the archive](generated-app-icon.md).
+- 🗂️ Prepared a scoped icon/documentation commit. Other tasks' working-copy
+  changes remain untouched. App Mirror was stopped and remains stopped.
+
+Next:
+
+- The icon update is complete. Resume the broader forwarding acceptance audit
+  only when requested.

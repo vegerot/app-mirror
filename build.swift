@@ -52,14 +52,31 @@ func run(_ launchPath: String, _ args: [String]) -> String {
 print("Building…")
 run("/usr/bin/swift", ["build", "-c", "release"])
 
-// 2. Assemble a fresh .app bundle around the compiled binary + Info.plist.
+// 2. Generate the standard and Retina icon sizes from the source artwork.
 let fm = FileManager.default
+let iconset = ".build/AppIcon.iconset"
+try fm.createDirectory(atPath: iconset, withIntermediateDirectories: true)
+for size in [16, 32, 128, 256, 512] {
+    for scale in [1, 2] {
+        let pixels = String(size * scale)
+        let suffix = scale == 2 ? "@2x" : ""
+        run("/usr/bin/sips", [
+            "--resampleHeightWidth", pixels, pixels,
+            "Resources/AppIcon.png", "--out", "\(iconset)/icon_\(size)x\(size)\(suffix).png",
+        ])
+    }
+}
+run("/usr/bin/iconutil", ["--convert", "icns", "--output", ".build/AppIcon.icns", iconset])
+
+// 3. Assemble a fresh .app bundle around the binary, Info.plist and icon.
 try? fm.removeItem(atPath: app)
 try fm.createDirectory(atPath: "\(app)/Contents/MacOS", withIntermediateDirectories: true)
+try fm.createDirectory(atPath: "\(app)/Contents/Resources", withIntermediateDirectories: true)
 try fm.copyItem(atPath: ".build/release/\(executable)", toPath: "\(app)/Contents/MacOS/\(executable)")
 try fm.copyItem(atPath: "Info.plist", toPath: "\(app)/Contents/Info.plist")
+try fm.copyItem(atPath: ".build/AppIcon.icns", toPath: "\(app)/Contents/Resources/AppIcon.icns")
 
-// 3. Sign with the stable identity, pinning the bundle id into the signature.
+// 4. Sign with the stable identity, pinning the bundle id into the signature.
 print("Signing as \(signID)…")
 run("/usr/bin/codesign", [
     "--force", "--deep", "--options", "runtime",
@@ -68,7 +85,7 @@ run("/usr/bin/codesign", [
     app,
 ])
 
-// 4. Report what we built.
+// 5. Report what we built.
 let authority = run("/usr/bin/codesign", ["-dvv", app])
     .split(separator: "\n")
     .first { $0.hasPrefix("Authority=") }

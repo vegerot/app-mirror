@@ -1,0 +1,21 @@
+Generated with the built-in image_gen tool on 2026-10-02.
+Final source: opaque full-square PNG, edited with imagegen after macOS rendered
+the first transparent design with an unwanted pale outer plate.
+
+Initial generation (transparent_background: true):
+
+Use case: logo-brand
+Asset type: production macOS application icon for App Mirror, a utility that mirrors another app's window and forwards interaction.
+Primary request: Design a polished, distinctive native Mac app icon showing two overlapping upright app-window panes, one original and one reflective duplicate. Make the metaphor instantly readable and the silhouette bold at small Dock sizes.
+Style/medium: carefully art-directed dimensional glass and satin aluminum, clean precise edges, restrained depth and soft studio illumination. The front pane is frosted silver glass with a single broad diagonal reflection, the offset rear pane glows cool blue. Very simplified window geometry, no tiny interface details.
+Composition/framing: one centered icon, front-facing with very subtle depth, on a smoothly rounded square deep blue tile. The tile occupies approximately 84 percent of a square 1024x1024 canvas, leaving equal transparent margins, all corners and the soft contact shadow completely visible. Two panes form one compact balanced emblem with strong separation from the tile.
+Constraints: actual transparent background outside the rounded tile. No text, letters, logos, cursors, arrows, badges, busy gradients, sparkles, ornamental elements, mockup, device frame, or presentation board. Deliver exactly one complete standalone icon, not a grid or variants. Professional, tactile, minimal.
+
+Final edit (transparent_background: false; reference: initial generated icon):
+
+Use case: precise-object-edit
+Asset type: production macOS App Mirror application icon.
+Edit target: the supplied AppIcon.png.
+Preserve the two overlapping reflective application window panes, silver front pane, blue rear pane, three colored titlebar buttons per pane, lighting, material quality, proportions, and overall design.
+Change only the outer background and framing: remove the rounded blue tile boundary, its bevel, its contact shadow, and ALL transparent exterior margins. Extend the rich deep blue background continuously to all four straight canvas edges and all four square corners. This image must be a fully opaque full-bleed SQUARE with no rounded corners and no outer container; macOS will apply its own mask. Scale the existing two-window emblem to occupy about 72 percent of the canvas width and 70 percent height, centered, leaving calm blue negative space on every side so the operating system can round the corners without cutting the windows. Keep the restrained internal shadows behind the window panes.
+Deliver one complete standalone square icon. No white or gray outer plate, no outer frame, no extra objects, no text, no watermark.
