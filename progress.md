@@ -282,6 +282,28 @@ Next:
 
 - Apply this guidance when friction arises during future mirror use.
 
+## 2026-10-02 — Meetings diagnostics through the mirror
+
+- 🔎 Reproduced the Meetings settings error through App Mirror. Read-only
+  diagnostics separately confirmed a backend HTTP 403; this was not attributed
+  to the mirror. The Debug button opened a prefilled diagnostic chat draft;
+  no message was sent, and navigation returned to the investigation.
+- 🪞 The mirrored Window menu stayed open after an Escape keypress; the target
+  received the key while the proxy menu remained visible. The exposed Cancel
+  accessibility action dismissed it. A small proposed improvement is to handle
+  Escape in an active proxy menu locally, verified first with the fixture.
+- 🔎 The plugin catalog snapshot exposed a later slice of its controls and
+  omitted the visible installed-Meetings link. A screenshot and one coordinate
+  click reached the detail page; its fresh accessibility tree verified version
+  0.8.77, a connected connector, and a settings error. This is another example
+  of the already-recorded snapshot-budget reachability gap in the plan.
+
+Next:
+
+- Continue the Meetings investigation without changing mirror code. Keep the
+  menu dismissal and snapshot reachability improvements separate from the
+  Meetings backend failure.
+
 ## 2026-10-02 — Add an explicit one-shot resize command
 
 - 🔧 Added `pkill -USR1 -x AppMirror`: a retained main-queue signal source
