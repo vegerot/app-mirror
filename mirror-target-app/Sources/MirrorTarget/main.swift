@@ -260,7 +260,7 @@ final class DraftView: NSTextView {
     }
 }
 
-final class AppDelegate: NSObject, NSApplicationDelegate {
+final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     let model = Model()
     private var window: NSWindow!
     private var timer: Timer?
@@ -276,6 +276,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             backing: .buffered, defer: false
         )
         window.isReleasedWhenClosed = false
+        window.delegate = self
         window.title = Probe.untitledWindow ? "" : Probe.appName
         model.log("Window title: \(Probe.untitledWindow ? "empty" : Probe.appName)")
         let content = NSView(frame: NSRect(x: 0, y: 0, width: 880, height: 720))
@@ -295,6 +296,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         window.center()
         window.makeKeyAndOrderFront(nil)
         NSApp.activate(ignoringOtherApps: true)
+        logWindowSize()
 
         // App-wide monitor: log EVERY mouse/key event this process receives,
         // regardless of which view (if any) ends up handling it. This is the
@@ -316,8 +318,17 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         timer = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: true) { [weak self] _ in
             guard let self else { return }
             let t = self.model.text.isEmpty ? "∅" : self.model.text
-            self.window.title = Probe.untitledWindow ? "" : "\(Probe.appName) [c:\(self.model.clicks) k:\(self.model.keys) ax:\(self.model.axReads) text:\(t)]"
+            let size = self.window.frame.size
+            self.window.title = Probe.untitledWindow ? "" : "\(Probe.appName) [size:\(Int(size.width))×\(Int(size.height)) c:\(self.model.clicks) k:\(self.model.keys) ax:\(self.model.axReads) text:\(t)]"
         }
+    }
+
+    func windowDidResize(_ notification: Notification) {
+        logWindowSize()
+    }
+
+    private func logWindowSize() {
+        model.log("Window outer size: \(window.frame.size)")
     }
 
     /// Formats and records one observed event into the model's on-screen log.

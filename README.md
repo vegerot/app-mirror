@@ -25,6 +25,24 @@ source artwork is [Resources/AppIcon.png](Resources/AppIcon.png); the
 request. `build.swift` uses macOS `sips` and `iconutil` to generate all standard
 and Retina sizes, then includes `AppIcon.icns` in the signed app bundle.
 
+## Resize to the target
+
+With the rebuilt App Mirror running, an agent can match its outer window size
+to the target's current outer window size with one command:
+
+```sh
+pkill -USR1 -x AppMirror
+```
+
+The request runs immediately on the app's main queue and preserves the proxy's
+top-left corner. It does not change the target's geometry or enable continuous
+resizing. Each invocation reads fresh target bounds and refreshes the proxy's
+accessibility geometry. The app logs `MIRROR resize requested` with target/proxy
+sizes in points, or `MIRROR resize skipped` if the target window is unavailable.
+The command sends a request; inspect the window or log to confirm the result.
+Rebuild and relaunch an older App Mirror before using the command: older builds
+do not handle this signal.
+
 ## Conversations
 
 [Computer Use engines and a ChatGPT wrapper](computer-use-engines-and-chatgpt-wrapper.md) continues the desktop-automation discussion with installed-helper inspection, public reverse-engineering projects, dated star counts, and local comparisons of iFurySt, Cua, and Peekaboo.
@@ -55,6 +73,13 @@ reproducible icon packaging. Inspecting the macOS-rendered icon exposed a pale
 outer plate around the first transparent design; full-square artwork fixed the
 actual app appearance while preserving signing and forwarding behavior.
 A follow-up adds guidance to record friction during mirror use and propose improvements.
+
+[One-shot proxy resize](one-shot-resize.md) adds an agent-invokable `SIGUSR1`
+command using the existing sizing path. Live fixture measurements verify matching
+outer dimensions, unchanged target bounds, preserved proxy position, and no
+continuous synchronization; the icon and broader forwarding audit are unchanged.
+The follow-up clarifies that launching the app does not automatically expose
+its output: this test explicitly captured and read stderr, not stdout.
 
 ## 🗃️ Live table
 

@@ -21,9 +21,9 @@ entry before continuing. Follow the progress convention in [AGENTS.md](AGENTS.md
 - Every new feature needs fixture support and visible/logged outcomes. Verify
   the target result; an acknowledged action is not proof it worked. Never
   automatically repeat a press after a visual no-op.
-- Preserve initial outer-window sizing only, the stable signing identity and
-  bundle ID, periodic refresh, `MIRROR_TARGET_BUNDLE_ID`, and its existing
-  `com.openai.codex` default.
+- Preserve initial and explicitly requested outer-window sizing, the stable
+  signing identity and bundle ID, periodic refresh, `MIRROR_TARGET_BUNDLE_ID`,
+  and its existing `com.openai.codex` default.
 - Defer multiple windows, file pickers, continuous resizing, capture-engine
   replacement, refresh optimization and a configuration framework.
 - Use scoped Sapling commits with model attribution. Preserve unrelated files

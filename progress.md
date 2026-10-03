@@ -281,3 +281,80 @@ Next:
 Next:
 
 - Apply this guidance when friction arises during future mirror use.
+
+## 2026-10-02 — Add an explicit one-shot resize command
+
+- 🔧 Added `pkill -USR1 -x AppMirror`: a retained main-queue signal source
+  requests fresh target bounds through the existing capture path, matches
+  outer size while preserving the proxy's top-left corner, and refreshes AX
+  geometry immediately. Missing target/window requests log a skipped resize.
+- 📐 MirrorTarget now logs initial/changed outer size and shows it in the
+  title. Target geometry is not written by the resize command. Documented
+  invocation and the fixture trial; continuous resizing remains deferred.
+- 🧪 Seven existing Swift tests and both signed builds passed with the
+  existing signing identity. A second source review found no actionable issues.
+- 🔎 Two displays are connected: built-in `(0, 0, 1512, 982)` and DELL
+  `(-197, 982, 2560, 1440)` in AppKit coordinates. Neither test app was running.
+  Live verification is pending because Computer Use rejected access to Mirror
+  Target as unapproved; requested access to the two controlled apps.
+
+Next:
+
+- Once UI access is granted, launch the rebuilt apps on the secondary display;
+  change only the proxy size, invoke the command, and record both dimensions
+  plus unchanged target bounds and preserved proxy top-left position.
+- Confirm a later proxy resize stays independent and check the missing-target
+  no-op. Preserve the pre-existing Meetings progress entry and other work.
+
+## 2026-10-02 — Verify one-shot resizing live
+
+- ✅ Through App Mirror, resized the proxy to 760×652; `SIGUSR1` restored
+  880×752. Window-server measurements kept target `(643, -1245, 880, 752)`
+  and proxy top-left `(633, -1225)` unchanged. Both windows were on DELL.
+- 🧪 A later proxy resize stayed at 800×692 across multiple capture ticks
+  until another request restored 880×752. After quitting the fixture through
+  the mirrored menu, a request logged `resize skipped: target not running`
+  and kept the proxy at 880×752. Stopped the proxy, restoring both apps to
+  their initial stopped state. See [the full evidence](one-shot-resize.md).
+- 🔎 Direct fixture Computer Use remained denied even after user approval;
+  approved proxy access worked. A coordinate click intended for the captured
+  fixture close button instead produced a pointer event at `(424,243)` and
+  left the window open; the mirrored Quit menu worked. The mapping cause is
+  unproven. A separate small follow-up could compare coordinate and semantic
+  clicks on a fixture title-bar control before changing forwarding.
+- 🗂️ Seven tests, both signed builds, and external-sandbox signature checks
+  passed. Prepared the scoped local feature/archive commit; preserved the icon,
+  unrelated `agent-comparison.md` changes, and the existing Meetings log entry.
+
+Next:
+
+- The requested resize feature is complete; use the README command with the
+  rebuilt running app. No push is authorized.
+- Leave the broader forwarding audit and coordinate-click finding for separate
+  requested work. The running-target/no-window branch remains untested live.
+
+## 2026-10-02 — Deliver the verified resize feature
+
+- 🗂️ The coordinator requested immediate delivery without blocking on an
+  optional commit. Source, documentation, and the validated two-turn archive
+  remain uncommitted; no push occurred. Both signed builds are ready to launch,
+  and a final process check confirmed the test apps are stopped.
+
+Next:
+
+- Use the rebuilt app and documented resize command. If committing later,
+  exclude the unrelated Meetings entry and `agent-comparison.md` changes.
+
+## 2026-10-02 — Archive resizing and launch-log clarification
+
+- 📝 Clarified that `open` does not automatically stream app output to the
+  agent. This trial explicitly captured/read stderr and its `NSLog` messages;
+  stdout was not separately captured. No automatic log monitor was added.
+- 🗂️ The user requested archiving. Updated the existing conversation and topic
+  index, validated four source turns, and prepared the local implementation/archive
+  commit with the unrelated Meetings entry excluded.
+
+Next:
+
+- Use the completed one-shot resize feature; retain the separate acceptance
+  gaps documented above. No push is requested.

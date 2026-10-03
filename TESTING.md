@@ -1,6 +1,6 @@
 # Shared mirror testing
 
-Checkpoint: **2026-09-24**. Seven automated tests and both signed builds pass.
+Checkpoint: **2026-10-02**. Seven automated tests and both signed builds pass.
 The common real-app acceptance audit is incomplete. Read [progress.md](progress.md) from the bottom for the current next experiment
 and [the review](REVIEW-2026-09-14.md) for the September 14 evidence.
 
@@ -44,6 +44,27 @@ Pass `--env PROBE_UNTITLED=1` to the fixture launch to test its untitled window.
 It reports that mode in the visible log. When more than one monitor is
 connected, put target and mirror on the secondary monitor after launch,
 checking current display geometry first.
+
+### One-shot resize
+
+Use the rebuilt running proxy; older builds do not handle `SIGUSR1`.
+The fixture displays its outer size in its title and logs initial/changed sizes.
+Keep the fixture's geometry fixed for this check:
+
+1. Record the target and proxy bounds, then resize only the proxy to a different
+   size. Wait through several capture ticks and confirm the mismatch remains.
+2. Run `pkill -USR1 -x AppMirror`. Confirm the proxy's outer width and height
+   match the target, its top-left corner stays fixed, and the target bounds
+   remain unchanged. The proxy log reports both sizes under `MIRROR resize requested`.
+3. Resize the proxy again and confirm it stays mismatched until another request.
+   This distinguishes a one-shot request from continuous synchronization.
+4. With no target window, a request must log `MIRROR resize skipped` without
+   changing the proxy size or using stale target bounds.
+
+The [October 2 trial](one-shot-resize.md) verified 760×652 → 880×752, unchanged
+target bounds, preserved proxy top-left position, a later independent resize,
+and a skipped request after the fixture quit. The separate running-target/no-window
+branch was not exercised.
 
 For real-app acceptance use only:
 

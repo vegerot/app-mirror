@@ -68,6 +68,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     private var windowID: CGWindowID = 0
     private var connectedPID: pid_t?
     private var timer: Timer?
+    private var resizeSignal: DispatchSourceSignal?
     private var axOverlay: AXOverlayView!
     private var axViews: [Int: AXProxyElementView] = [:]
     private var axActionObserver: NSObjectProtocol?
@@ -154,12 +155,20 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             self?.refreshAXAfterAction()
         }
 
+        // A one-shot agent command, delivered on the AppKit main queue.
+        signal(SIGUSR1, SIG_IGN)
+        let resizeSignal = DispatchSource.makeSignalSource(signal: SIGUSR1, queue: .main)
+        resizeSignal.setEventHandler { [weak self] in self?.tick(resizeRequested: true) }
+        self.resizeSignal = resizeSignal
+        resizeSignal.resume()
+
         timer = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: true) { [weak self] _ in
             self?.tick()
         }
     }
 
     func applicationWillTerminate(_ notification: Notification) {
+        resizeSignal?.cancel()
         if let keyMonitor {
             NSEvent.removeMonitor(keyMonitor)
         }
@@ -173,12 +182,13 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     /// Captures the latest ChatGPT frame and refreshes the mirror's target bounds.
-    private func tick() {
+    private func tick(resizeRequested: Bool = false) {
         // Live permission status in the title bar, visible however the app was
         // launched (unlike stderr logs, which vanish when launched via Finder).
         TargetConnection.shared.refresh()
         let perms = Permissions.summary()
         guard let pid = TargetConnection.shared.pid() else {
+            if resizeRequested { NSLog("MIRROR resize skipped: target not running") }
             connectedPID = nil
             clearSurface()
             menus.reset()
@@ -187,20 +197,24 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             return
         }
         guard let (id, bounds) = TargetConnection.shared.mainWindow(pid: pid) else {
+            if resizeRequested { NSLog("MIRROR resize skipped: no target window found") }
             clearSurface()
             window.title = "\(TargetConnection.shared.displayName) Mirror — no window found\(perms)"
             return
         }
-        if connectedPID != pid {
-            // Match the outer window size once per connection, keeping its
-            // top-left corner in place. Later target resizes do not resize us.
+        if connectedPID != pid || resizeRequested {
+            // Match outer size on connection or an explicit request, keeping
+            // our top-left corner in place. Never change the target geometry.
             var frame = window.frame
             frame.origin.y = frame.maxY - bounds.height
             frame.size = bounds.size
             window.setFrame(frame, display: true)
-            connectedPID = pid
-            menus.install(pid: pid)
-            NSLog("MIRROR connected pid=\(pid) targetSize=\(bounds.size) proxySize=\(window.frame.size)")
+            if connectedPID != pid {
+                connectedPID = pid
+                menus.install(pid: pid)
+            }
+            lastAXRefresh = .distantPast
+            NSLog("MIRROR \(resizeRequested ? "resize requested" : "connected") pid=\(pid) targetSize=\(bounds.size) proxySize=\(window.frame.size)")
         }
         windowID = id
         mirror.targetPID = pid

@@ -39,7 +39,8 @@ boundary. When more than one monitor is connected, put all controlled windows
 on the user's secondary monitor to avoid interference. Restore state after
 tests and never send test chat messages.
 
-Preserve initial outer-window sizing, stable signing identity, bundle ID,
+Preserve initial outer-window sizing and support explicit one-shot sizing
+requests. Keep the stable signing identity, bundle ID,
 `MIRROR_TARGET_BUNDLE_ID` and its default. Continuous resizing, multiple windows,
 file pickers, capture replacement and refresh optimization are deferred.
 
