@@ -1,6 +1,5 @@
 ---
 aliases: [app-mirror]
-tags: [agent-error, mcp, permissions, reverse-engineering]
 ---
 
 # 🪞 App Mirror
