@@ -86,7 +86,12 @@ text entry, scrolling, and pointer events. It found that a stale accessibility
 element ID needed a state refresh, a context-menu choice needed Return to run,
 and reported scroll position did not always match visible movement; Quit remained
 untested. This complements the proxy audits by recording concrete fixture
-behavior and keeping tool limitations distinct from app behavior.
+behavior and keeping tool limitations distinct from app behavior. A subsequent
+rollout comparison found Antigravity/Cmux CUA took 8m12s in its subagent versus
+3m47s for Codex: Antigravity made 66 CUA calls and 56 output reads, including 17
+screenshot-backed states, while Codex made 39 CUA REPL calls and two screenshots.
+The runs were not scope-matched, but the evidence points to tool round trips and
+verification volume as the main measured cost; model generation was not isolated.
 
 ## 🗃️ Live table
 
