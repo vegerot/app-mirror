@@ -80,6 +80,14 @@ continuous synchronization; the icon and broader forwarding audit are unchanged.
 The follow-up clarifies that launching the app does not automatically expose
 its output: this test explicitly captured and read stderr, not stdout.
 
+[MirrorTarget feature experiment](mirror-target-feature-experiment.md) exercises
+the native fixture directly through Computer Use, covering its menus, controls,
+text entry, scrolling, and pointer events. It found that a stale accessibility
+element ID needed a state refresh, a context-menu choice needed Return to run,
+and reported scroll position did not always match visible movement; Quit remained
+untested. This complements the proxy audits by recording concrete fixture
+behavior and keeping tool limitations distinct from app behavior.
+
 ## 🗃️ Live table
 
 Renders in Obsidian.
