@@ -93,8 +93,17 @@ screenshot-backed states, while Codex made 39 CUA REPL calls and two screenshots
 The runs were not scope-matched, but the evidence points to tool round trips and
 verification volume as the main measured cost; model generation was not isolated.
 
+[CUA Driver fixture testing and nightly releases](cua-driver-fixture-and-nightly-releases.md) follows
+the fixture experiments by driving `MirrorTarget.app` through `cua-driver` MCP.
+Token-addressing failures and text-only snapshot omissions traced back to a version
+gap between released `0.34.0` and recent `main` fixes, while the nightly release
+channel was blocked by an attribution hold on GitHub Actions. Relevant issues
+and release PR #4738 were upvoted, stable `0.34.0` was restored, and follow-up
+checks confirmed the hold remained active while `main` continued advancing.
+
 ## 🗃️ Live table
 
 Renders in Obsidian.
 
 ![[topic.base]]
+
