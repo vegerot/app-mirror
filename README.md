@@ -101,6 +101,12 @@ channel was blocked by an attribution hold on GitHub Actions. Relevant issues
 and release PR #4738 were upvoted, stable `0.34.0` was restored, and follow-up
 checks confirmed the hold remained active while `main` continued advancing.
 
+[CUA Driver release status and prompt workarounds](cua-driver-release-status-and-prompt-workarounds.md) checks
+whether upstream fixes landed in published releases, clarifies that daily releases on `trycua/cua` belong
+to independent tools like Lume rather than the driver, traces in-tree dependencies in `cua-spacesd`, and
+establishes prompt directives (explicit `pid`, refusal probe for `snapshot_id`, and popup clicks) to bypass
+all four `0.34.0` bugs without waiting for PR #4738 or building from source.
+
 ## 🗃️ Live table
 
 Renders in Obsidian.
