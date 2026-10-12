@@ -107,6 +107,11 @@ to independent tools like Lume rather than the driver, traces in-tree dependenci
 establishes prompt directives (explicit `pid`, refusal probe for `snapshot_id`, and popup clicks) to bypass
 all four `0.34.0` bugs without waiting for PR #4738 or building from source.
 
+[CUA Driver 0.35.0 upgrade and fixture verification](cua-driver-0-35-upgrade-and-fixture-verification.md) upgrades
+the local driver from `0.34.0` to `0.35.0` via monitored CD build artifacts, extends `MirrorTarget.app` with
+combo boxes, pull-down buttons, and ellipsis menu items, and verifies that `0.35.0` resolves token addressing without
+`pid`, closed popup values, text editing via synthetic events, and menu resolution.
+
 ## 🗃️ Live table
 
 Renders in Obsidian.

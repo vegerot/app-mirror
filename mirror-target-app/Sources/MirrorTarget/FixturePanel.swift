@@ -48,8 +48,20 @@ final class FixturePanel: NSView {
         time.target = self
         time.action = #selector(selectTime(_:))
         addSubview(time)
+        let combo = NSComboBox(frame: NSRect(x: 10, y: 295, width: 170, height: 26))
+        combo.setAccessibilityLabel("Fixture combo")
+        combo.addItems(withObjectValues: ["Item Alpha", "Item Beta", "Item Gamma"])
+        combo.target = self
+        combo.action = #selector(selectCombo(_:))
+        addSubview(combo)
+        let pulldown = NSPopUpButton(frame: NSRect(x: 195, y: 295, width: 175, height: 30), pullsDown: true)
+        pulldown.setAccessibilityLabel("Fixture pulldown")
+        pulldown.addItems(withTitles: ["Pull-down actions", "Action One", "Action Two"])
+        pulldown.target = self
+        pulldown.action = #selector(selectPulldown(_:))
+        addSubview(pulldown)
         for (index, name) in ["Left scroll", "Right scroll"].enumerated() {
-            let scroll = AuditScrollView(frame: NSRect(x: 10 + index * 185, y: 140, width: 175, height: 180))
+            let scroll = AuditScrollView(frame: NSRect(x: 10 + index * 185, y: 130, width: 175, height: 150))
             scroll.name = name
             scroll.hasVerticalScroller = true
             scroll.setAccessibilityLabel(name)
@@ -77,6 +89,16 @@ final class FixturePanel: NSView {
         let selected = sender.titleOfSelectedItem ?? "none"
         result.stringValue = "Time \(selected)"
         report?("Time selected: \(selected)")
+    }
+    @objc private func selectCombo(_ sender: NSComboBox) {
+        let val = sender.stringValue
+        result.stringValue = "Combo \(val)"
+        report?("Combo selected: \(val)")
+    }
+    @objc private func selectPulldown(_ sender: NSPopUpButton) {
+        let val = sender.titleOfSelectedItem ?? "none"
+        result.stringValue = "Pulldown \(val)"
+        report?("Pulldown selected: \(val)")
     }
     @objc private func replaced() { result.stringValue = "Replacement version \(version)" }
     private func installReplacement() {

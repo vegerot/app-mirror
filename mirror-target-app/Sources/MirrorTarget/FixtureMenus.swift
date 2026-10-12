@@ -64,6 +64,10 @@ final class FixtureMenus: NSObject, NSMenuDelegate {
         menuNeedsUpdate(submenu)
         nested.submenu = submenu
         menu.addItem(nested)
+        menu.addItem(.separator())
+        let prefs = NSMenuItem(title: "Preferences…", action: #selector(preferencesAction), keyEquivalent: ",")
+        prefs.target = self
+        menu.addItem(prefs)
         model.log("Menu state: allowed=\(allowed) count=\(count)")
     }
 
@@ -88,5 +92,8 @@ final class FixtureMenus: NSObject, NSMenuDelegate {
     @objc private func incrementNested() {
         nestedCount += 1
         model.log("Nested menu count=\(nestedCount)")
+    }
+    @objc private func preferencesAction() {
+        model.log("Menu action: Preferences opened")
     }
 }
