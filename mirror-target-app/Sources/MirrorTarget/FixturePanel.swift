@@ -137,8 +137,16 @@ final class EventPad: NSView {
         window?.makeFirstResponder(self)
         report?("Left clicks=\(event.clickCount) mods=0b\(String(event.modifierFlags.rawValue, radix: 2))")
     }
-    override func mouseDragged(with event: NSEvent) { report?("Dragged \(Int(event.locationInWindow.x)),\(Int(event.locationInWindow.y))") }
-    override func mouseUp(with event: NSEvent) { report?("Released \(Int(event.locationInWindow.x)),\(Int(event.locationInWindow.y))") }
+    override func mouseDragged(with event: NSEvent) {
+        let p = event.locationInWindow
+        let pos = (p.x.isFinite && p.y.isFinite) ? "\(Int(p.x)),\(Int(p.y))" : "?,?"
+        report?("Dragged \(pos)")
+    }
+    override func mouseUp(with event: NSEvent) {
+        let p = event.locationInWindow
+        let pos = (p.x.isFinite && p.y.isFinite) ? "\(Int(p.x)),\(Int(p.y))" : "?,?"
+        report?("Released \(pos)")
+    }
     override func otherMouseDown(with event: NSEvent) { report?("Middle button=\(event.buttonNumber)") }
     override func mouseMoved(with event: NSEvent) { report?("Hover") }
     override func rightMouseDown(with event: NSEvent) {
@@ -156,6 +164,8 @@ final class AuditScrollView: NSScrollView {
     var name = ""
     override func scrollWheel(with event: NSEvent) {
         super.scrollWheel(with: event)
-        report?("\(name) scroll y=\(Int(contentView.bounds.origin.y))")
+        let y = contentView.bounds.origin.y
+        let yStr = y.isFinite ? "\(Int(y))" : "?"
+        report?("\(name) scroll y=\(yStr)")
     }
 }

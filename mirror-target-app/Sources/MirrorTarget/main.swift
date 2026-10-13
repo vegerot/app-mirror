@@ -319,7 +319,9 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
             guard let self else { return }
             let t = self.model.text.isEmpty ? "∅" : self.model.text
             let size = self.window.frame.size
-            self.window.title = Probe.untitledWindow ? "" : "\(Probe.appName) [size:\(Int(size.width))×\(Int(size.height)) c:\(self.model.clicks) k:\(self.model.keys) ax:\(self.model.axReads) text:\(t)]"
+            let w = size.width.isFinite ? "\(Int(size.width))" : "?"
+            let h = size.height.isFinite ? "\(Int(size.height))" : "?"
+            self.window.title = Probe.untitledWindow ? "" : "\(Probe.appName) [size:\(w)×\(h) c:\(self.model.clicks) k:\(self.model.keys) ax:\(self.model.axReads) text:\(t)]"
         }
     }
 
@@ -333,8 +335,6 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
 
     /// Formats and records one observed event into the model's on-screen log.
     private func record(_ event: NSEvent) {
-        let p = event.locationInWindow
-        let pos = "(\(Int(p.x)),\(Int(p.y)))"
         let modifiers = "0b" + String(event.modifierFlags.rawValue, radix: 2)
         let line: String
         switch event.type {
@@ -344,6 +344,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         case .flagsChanged:
             line = "flagsChanged mods=\(modifiers)"
         default:
+            let p = event.locationInWindow
+            let pos = (p.x.isFinite && p.y.isFinite) ? "(\(Int(p.x)),\(Int(p.y)))" : "(?,?)"
             line = "\(mouseName(event.type)) \(pos) clicks=\(event.clickCount) mods=\(modifiers)"
         }
         model.log(line)

@@ -380,3 +380,63 @@ Next:
 
 - Use the completed one-shot resize feature; retain the separate acceptance
   gaps documented above. No push is requested.
+
+## 2026-10-12 — Fixture crashes on a non-finite event location (DSH Cua Driver sweep)
+
+- 🧪 Drove the fixture from the DSH harness instead of the proxy, as a sweep of
+  `MirrorTarget`'s own controls: background launch, `set_window_frame` onto the DELL
+  U2723QE, AX + screenshot read (PIXEL `PXL-KILO-42` visible only in pixels, AX
+  `AXS-LIMA-97` only in the tree, read counter rising), composer text, duplicate-label
+  buttons, checkbox, time popup, combo (needs a confirm), pull-down (open menu then
+  press the item — `set_value` only writes an unverifiable AXValue), replacement button,
+  multiline draft, scroll, pad click and right-click, and `invoke_menu` Preferences….
+- 💥 Two crashes, one per instance: `MirrorTarget-2026-10-12-171919.ips` (pid 29515) and
+  `MirrorTarget-2026-10-12-172151.ips` (pid 49575) in
+  `~/Library/Logs/DiagnosticReports`. Both are `EXC_BREAKPOINT`/`SIGTRAP` with
+  "Swift runtime failure: Double value cannot be converted to Int because it is either
+  infinite or NaN" in `AppDelegate.record(_:)`, reached from the app-wide local event
+  monitor (`closure #3 in applicationDidFinishLaunching`). This is a different signature
+  from the timer/`objc_retain` close crash already fixed.
+- 🔎 Observed before each crash: the process was alive with **no on-screen window**
+  (`get_accessibility_tree` listed no Mirror Target window while the app kept logging),
+  so events arrived with no window to map a location into.
+  Smallest useful fix: log the position only when `event.locationInWindow` is finite (or
+  guard the `Int(...)` conversion) instead of trapping.
+- ⚠️ Unresolved: what closed each window. Both `drag` attempts failed with "exact target
+  window did not become focused for foreground HID delivery" and sent nothing, so the
+  drag is not the demonstrated cause; the fixture's drag feature therefore remains
+  unverified. Background drag is structurally unavailable on macOS, so only the
+  foreground route can ever cover it. Background hover likewise never reaches a plain
+  AppKit view — expected, per the driver's own notes.
+
+Next:
+
+- Add the non-finite `locationInWindow` guard to `AppDelegate.record(_:)`, rebuild and
+  sign with `swift app-mirror/mirror-target-app/build.swift`, then retry the foreground
+  drag on the secondary display against the fresh instance.
+- When a sweep ends early, read `~/Library/Logs/DiagnosticReports` for `MirrorTarget-*`
+  before concluding the app exited: both instances here had already crashed.
+
+## 2026-10-12 — Fix non-finite coordinate crashes and verify foreground drag live
+
+- 🛠️ Fixed the `Double` to `Int` conversion traps across `MirrorTarget`:
+  - In `AppDelegate.record(_:)` (`main.swift`), moved coordinate extraction into
+    `default:` (mouse events only; key/flag events no longer evaluate coordinates)
+    and guarded `p.x.isFinite && p.y.isFinite`, falling back to `(?,?)`.
+  - Guarded window size conversions in the title update timer with `.isFinite`.
+  - In `FixturePanel.swift`, guarded `mouseDragged` and `mouseUp` in `EventPad`
+    and `scrollWheel` in `AuditScrollView` against non-finite values.
+- 🏗️ Rebuilt and signed `MirrorTarget.app` via `swift app-mirror/mirror-target-app/build.swift`.
+- 🧪 Launched the rebuilt fixture (PID 68718) and retested foreground drag via `cua-driver`:
+  - Dispatched `drag` in `delivery_mode: foreground` (12 steps / 400ms across the pointer pad).
+  - The fixture successfully received and logged all events (`Dragged 700,56` … `Released 740,49`)
+    without crashing.
+  - Zero crash reports generated in `~/Library/Logs/DiagnosticReports/`.
+  - Confirmed the previously unexplained window loss during drag was simply the process
+    crashing on the unhandled non-finite coordinates.
+  - Cleanly stopped the test fixture with Cmd+Q.
+
+Next:
+
+- Keep the verified `MirrorTarget` binary in place for future proxy and Cua Driver acceptance runs.
+- Do not commit unrelated changes in `agent-comparison.md` or other tracked files unless requested.
