@@ -112,6 +112,12 @@ the local driver from `0.34.0` to `0.35.0` via monitored CD build artifacts, ext
 combo boxes, pull-down buttons, and ellipsis menu items, and verifies that `0.35.0` resolves token addressing without
 `pid`, closed popup values, text editing via synthetic events, and menu resolution.
 
+[CUA Driver nightly attribution hold mechanism and 0.37.0 upgrade on Windows](cua-driver-nightly-hold-and-0-37-upgrade.md) traces why
+`nightly` remains wedged on `0.30.5-nightly.20260929` (`.github/scripts/release_channels.py` scans back to `previousNightlyTag` and
+hits unmapped email `dillondupont808@gmail.com` in `.github/release-attribution-config.json`) while `stable` advances, upgrades
+the Windows install to `0.36.0` and then to the Authenticode-signed, Windows-E2E-certified `0.37.0` build from CD run `#39350579075`,
+and cleans up a background `install.ps1` updater task that hung on a non-interactive UAC prompt for a stale High-IL daemon.
+
 ## 🗃️ Live table
 
 Renders in Obsidian.
