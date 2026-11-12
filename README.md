@@ -52,6 +52,8 @@ Forwarding was verified end-to-end with synthetic events, and a stable-identity 
 The remaining mismatch is presentation-only but prevents strict direct-control equivalence: after a final self-resize drag, Codex's RPCs and final response complete in the backend while ChatGPT's renderer can remain on a stale tool card.
 A later portability probe retargeted the unchanged binary to Claude.app and verified mirrored pixels, AX controls, semantic sidebar activation, and composer value setting; it also showed that transparent ordinary clicks and a target-neutral configuration/adapter boundary are still needed before calling the proxy general-purpose.
 
+[Codex side of the proxy acceptance audit](codex-side-of-the-proxy-acceptance-audit.md) (2026-09-10) is Codex's own run-by-run record of the same audit, including failures before each fix and an unverified View-menu label sequence.
+
 [Claude control and shared proxy refactor](claude-proxy-control-and-sizing.md) continues the portability probe with live Computer Use tests and initial outer-window sizing, then removes multi-window experiments and extracts shared target, accessibility, input and menu components.
 Its September 14 Astra review corrects Luna's unsupported menu claims, preserves physical function keys, simplifies capture correspondence, and adds binary modifier and persistent outcome logs; seven tests pass, but the combined acceptance audit remains incomplete.
 The [handoff plan](plan.md) records clipboard and snapshot-budget gaps and a proposed background-input experiment: native Codex CU operated the fixture without taking foreground focus, while the proxy itself still activates the target and uses global pointer input. All ChatGPT Computer Use remains strictly through the mirror.
