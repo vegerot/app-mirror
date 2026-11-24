@@ -9,9 +9,9 @@ and [the review](REVIEW-2026-09-14.md) for the September 14 evidence.
 From the repository root, run sequentially:
 
 ```sh
-swift test --package-path app-mirror
-swift app-mirror/build.swift
-swift app-mirror/mirror-target-app/build.swift
+swift test
+swift build.swift
+swift mirror-target-app/build.swift
 ```
 
 The existing CGWindowListCreateImage deprecation remains; capture replacement
@@ -25,7 +25,7 @@ bundle, not its executable; executable launch previously reported AX denied.
 open --new \
   --env MIRROR_TARGET_BUNDLE_ID=com.anthropic.claudefordesktop \
   --stderr /tmp/claude-mirror-test.log \
-  app-mirror/AppMirror.app
+  AppMirror.app
 ```
 
 Use `com.openai.codex` for ChatGPT (also the existing default).
@@ -33,11 +33,11 @@ For the fixture:
 
 ```sh
 open --new --stderr /tmp/fixture-test.log \
-  app-mirror/mirror-target-app/MirrorTarget.app
+  mirror-target-app/MirrorTarget.app
 open --new \
   --env MIRROR_TARGET_BUNDLE_ID=com.mirror-target.testapp \
   --stderr /tmp/fixture-mirror-test.log \
-  app-mirror/AppMirror.app
+  AppMirror.app
 ```
 
 Pass `--env PROBE_UNTITLED=1` to the fixture launch to test its untitled window.
