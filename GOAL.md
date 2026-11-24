@@ -50,5 +50,5 @@ Read [progress.md](progress.md) from the bottom for the current checkpoint and
 next experiment. [plan.md](plan.md) holds the
 work order; [TESTING.md](TESTING.md) holds commands and test coverage.
 Historical evidence remains in [the September 14 review](REVIEW-2026-09-14.md),
-[the initial archive](chatgpt-mirror-proxy-app.md), and
-[the resumed proxy archive](claude-proxy-control-and-sizing.md).
+the initial archive (`ai-conversations/app-mirror/chatgpt-mirror-proxy-app.md`), and
+the resumed proxy archive (`ai-conversations/app-mirror/claude-proxy-control-and-sizing.md`).

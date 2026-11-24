@@ -61,7 +61,7 @@ Keep the fixture's geometry fixed for this check:
 4. With no target window, a request must log `MIRROR resize skipped` without
    changing the proxy size or using stale target bounds.
 
-The [October 2 trial](one-shot-resize.md) verified 760×652 → 880×752, unchanged
+The October 2 trial (`ai-conversations/app-mirror/one-shot-resize.md`) verified 760×652 → 880×752, unchanged
 target bounds, preserved proxy top-left position, a later independent resize,
 and a skipped request after the fixture quit. The separate running-target/no-window
 branch was not exercised.

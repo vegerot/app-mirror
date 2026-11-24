@@ -14,7 +14,7 @@ evidence lives in reviews, testing notes, and linked conversation archives.
   acceptance/focus checkpoint (`18abf9aed350`).
 - 📝 The earlier menu commit `a159cd1d6699` was Luna-authored despite its Astra
   trailer; public history was not rewritten. See the
-  [archive correction](claude-proxy-control-and-sizing.md).
+  archive correction (`ai-conversations/app-mirror/claude-proxy-control-and-sizing.md`).
 - 🧪 Seven unit tests and both signed builds passed. The fixture and much of
   Claude were checked; ChatGPT paste, long-conversation accessibility reach,
   emoji selection, and native-menu keyboard behavior retain documented gaps.
@@ -132,7 +132,7 @@ Next:
   survived native window closure and checks five seconds apart with no visible
   windows. Command-Q exited it; no crash report for that PID appeared.
 - 🗂️ Recorded evidence and turn summaries in
-  [the conversation archive](mirror-target-close-crash.md), updated the topic
+  the conversation archive (`ai-conversations/app-mirror/mirror-target-close-crash.md`), updated the topic
   index, and prepared the requested scoped commit. The fixed bundle is restored
   and the fixture is stopped. Display placement limitations remain documented.
 
@@ -238,7 +238,7 @@ Next:
 - 🧪 Seven Swift tests passed. The bundle plist, icon representations and final
   signature verified. An `NSWorkspace` rendering check caught a pale outer plate
   around the first transparent image; a full-square imagegen edit removed it
-  in the final macOS rendering. See [the archive](generated-app-icon.md).
+  in the final macOS rendering. See the archive (`ai-conversations/app-mirror/generated-app-icon.md`).
 - 🗂️ Prepared a scoped icon/documentation commit. Other tasks' working-copy
   changes remain untouched. App Mirror was stopped and remains stopped.
 
@@ -264,7 +264,7 @@ Next:
   fresh controls and screenshots verified both outcomes. No message or draft
   changes. Left the mirror running and raised for the user's inspection.
 - 🔎 The separate Dock inspection timed out; no live Dock screenshot is claimed.
-  Details are in [the icon archive](generated-app-icon.md).
+  Details are in the icon archive (`ai-conversations/app-mirror/generated-app-icon.md`).
 
 Next:
 
@@ -337,7 +337,7 @@ Next:
   until another request restored 880×752. After quitting the fixture through
   the mirrored menu, a request logged `resize skipped: target not running`
   and kept the proxy at 880×752. Stopped the proxy, restoring both apps to
-  their initial stopped state. See [the full evidence](one-shot-resize.md).
+  their initial stopped state. See the full evidence (`ai-conversations/app-mirror/one-shot-resize.md`).
 - 🔎 Direct fixture Computer Use remained denied even after user approval;
   approved proxy access worked. A coordinate click intended for the captured
   fixture close button instead produced a pointer event at `(424,243)` and
